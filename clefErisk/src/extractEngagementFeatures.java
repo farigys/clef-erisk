@@ -21,6 +21,7 @@ import org.xml.sax.SAXException;
 
 import edu.stanford.nlp.tagger.maxent.MaxentTagger;
 
+//extracts engagement features
 
 public class extractEngagementFeatures {
 	static String root = "/home/farig/Desktop/eRisk@CLEF2017 - released training data_backup/";
@@ -94,6 +95,10 @@ public class extractEngagementFeatures {
 	        	String prevDate = "";
 	        	int totalUrls = 0;
 	        	int totalQuestions = 0;
+	        	int totalBlankPosts = 0;
+	        	int numberOfTokens = 0;
+	        	int sentenceCount = 0;
+	        	int longSentenceCount = 0;
 	        	ArrayList<Double> waitTimes = new ArrayList<Double>();
 	        	int nightPosts = 0;
 	        	
@@ -138,9 +143,22 @@ public class extractEngagementFeatures {
 			    			//System.out.println(title.length());
 			    			if(title.equals("   "))totalReplies++;
 			    			
+			    			if(text.equals("  "))totalBlankPosts++;
+			    			
+			    			StringTokenizer tokens = new StringTokenizer(text, ".!?");
+			    			
+			    			while(tokens.hasMoreTokens())
+			    			{
+			    				sentenceCount++;
+			    				String currSentence = tokens.nextToken().toString();
+			    				if(currSentence.length()>1500)longSentenceCount++;
+			    			}
+			    			
 			    			String taggedText = tagger.tagString(text);
 			    			
 			    			String[] parts = taggedText.split(" ");
+			    			
+			    		    numberOfTokens+=parts.length;
 			    			
 			    			for(int words=0; words<parts.length; words++)
 			    			{
@@ -206,19 +224,28 @@ public class extractEngagementFeatures {
     				avgWait+=waitTimes.get(x);
     			}
     			
-    			
+    			double avgBlankPosts = totalBlankPosts/(totalposts * 1.0);
+    			double avgTokenPerPost = numberOfTokens/(totalposts * 1.0);
+    			double avgSentencePerPost = sentenceCount/(totalposts * 1.0);
+    			double percentLongSentence = longSentenceCount/(totalposts * 1.0);
     				
     			
     			avgWait/=(waitTimes.size()-1);
     			
 //    			file format:
-//    			userId -> active time in days -> total posts -> total replies -> total urls -> 
-//    			total questions -> median wait time in minutes -> maximum wait time in minutes ->
-//    			average wait time in minutes -> insomniac index 
+//    			userId -> active time in days -> total posts -> total replies -> %replies ->
+//    			total urls -> avg url per post -> total questions -> avg question per post -> 
+//    			median wait time in minutes -> maximum wait time in minutes -> average wait time in minutes
+//    			-> insomniac index -> total blank posts -> %blank posts ->  avg number of tokens per post ->
+//    			total sentence count -> avg sentence per post -> total long sentences -> % long sentences
     			
     			bw.write(currUserId + ":" + totalActTime + ":" + totalposts + ":" + totalReplies + ":"
-    					+ totalUrls + ":" + totalQuestions + ":" + (medianWait/60.0) + ":" + (maxWait/60.0) + 
-    					":" + (avgWait/60.0) + ":" + (nightPosts/(totalposts*1.0)) + "\n");
+    					+ (totalReplies/(totalposts * 1.0)) + ":" + totalUrls + ":" + (totalUrls)/(totalposts * 1.0)
+    					+ ":" + totalQuestions + ":" + (totalQuestions/(totalposts * 1.0)) + ":" + 
+    					(medianWait/60.0) + ":" + (maxWait/60.0) + ":" + (avgWait/60.0) + ":" + 
+    					(nightPosts/(totalposts*1.0)) + ":" + totalBlankPosts + avgBlankPosts + ":" + 
+    					avgTokenPerPost + ":" + sentenceCount + ":" + (sentenceCount/(totalposts * 1.0)) + ":" 
+    					+ longSentenceCount + ":" + (longSentenceCount/(sentenceCount * 1.0)) + "\n");
 	        }
 	    bw.close();
 	}

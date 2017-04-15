@@ -15,6 +15,8 @@ import java.util.StringTokenizer;
 
 import edu.stanford.nlp.tagger.maxent.MaxentTagger;
 
+//parses XML files 
+
 public class xmlParser {
 
   public static void main(String argv[]) {

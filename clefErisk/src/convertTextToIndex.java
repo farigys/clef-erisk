@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
 
+//converts text files into indexed files based on a dictionary
 
 public class convertTextToIndex {
 public static void main(String argv[]) throws IOException{
@@ -19,7 +20,7 @@ public static void main(String argv[]) throws IOException{
 		HashMap<String, String> dictMap = new HashMap<String, String>();
 		
 		String root = "/home/farig/Desktop/eRisk@CLEF2017 - released training data/";
-		File  f = new File(root + "filtered-dictionary_5.txt");
+		File  f = new File(root + "filtered_dictionary_100.txt"); //provide the name of the dictionary here
 	    FileInputStream fis = new FileInputStream(f); 
 	    BufferedReader reader = new BufferedReader(new InputStreamReader(fis));
 	    
@@ -57,11 +58,17 @@ public static void main(String argv[]) throws IOException{
 	    	BufferedWriter bw = new BufferedWriter(fw);
 		    
 		    line = "";
-		    String writable = "";
+		    
 		    
 		    while((line=reader1.readLine())!=null)
 		    {
+		    	String writable = "";
 		    	//if(line.equals(""))continue;
+		    	if(line.equals("------------------"))
+		    	{
+		    		bw.write("\n");
+		    		continue;
+		    	}
 		    	String[] parts = line.split(" ");
 		    	for(int c=0; c<parts.length; c++)
 		    	{
@@ -81,10 +88,10 @@ public static void main(String argv[]) throws IOException{
 			    	
 		    		writable = writable + " " + dictMap.get(toWrite);
 		    	}
-		    	writable = writable + "\n";
+		    	bw.write(writable.trim() + " ");
 		    }
 		    reader1.close();
-		    if(!writable.equals(""))bw.write(writable);
+		    //if(!writable.equals(""))bw.write(writable);
 		    bw.close();
 			
 		}
@@ -113,11 +120,17 @@ public static void main(String argv[]) throws IOException{
 	    	BufferedWriter bw = new BufferedWriter(fw);
 		    	    
 		    line = "";
-		    String writable = "";
+		    //String writable = "";
 		    
 		    while((line=reader1.readLine())!=null)
 		    {
+		    	String writable = "";
 		    	//if(line.equals(""))continue;
+		    	if(line.equals("------------------"))
+		    	{
+		    		bw.write("\n");
+		    		continue;
+		    	}
 		    	String[] parts = line.split(" ");
 		    	for(int c=0; c<parts.length; c++)
 		    	{
@@ -128,18 +141,19 @@ public static void main(String argv[]) throws IOException{
 		    			toWrite = "URL_URL";
 		    		if(parts[c].startsWith("r/") || parts[c].startsWith("/r/"))
 		    			toWrite = "SUBR_SUBR";
-
 		    		String[] wordParts = toWrite.split("_");
 			    	String posTag = wordParts[wordParts.length-1];
-			    	if(posTag.equals("CD"))toWrite = "NMBR_NMBR";
+			    	
 			    	if(classesToDelete.contains(posTag))continue;
+			    	if(posTag.equals("CD"))toWrite = "NMBR_NMBR";
 			    	if(!dictMap.containsKey(toWrite))continue;
+			    	
 		    		writable = writable + " " + dictMap.get(toWrite);
 		    	}
-		    	writable = writable + "\n";
+		    	bw.write(writable.trim() + " ");
 		    }
 		    reader1.close();
-		    if(!writable.equals(""))bw.write(writable);
+		    //if(!writable.equals(""))bw.write(writable);
 		    bw.close();
 			
 		}

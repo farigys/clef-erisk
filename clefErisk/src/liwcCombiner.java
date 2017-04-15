@@ -9,6 +9,7 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.*;
 
+//joins chunk based user level LIWC feature vectors in one file
 
 public class liwcCombiner {
 	public static void main(String[] args) throws IOException, ParseException {

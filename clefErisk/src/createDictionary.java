@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
 
+//creates a dictionary based on the training file
 
 public class createDictionary {
 	public static void main(String argv[]) throws IOException{

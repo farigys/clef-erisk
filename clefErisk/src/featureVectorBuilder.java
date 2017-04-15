@@ -8,6 +8,7 @@ import java.io.InputStreamReader;
 import java.text.ParseException;
 import java.util.*;
 
+//creates feature vectors based on some basic features
 
 public class featureVectorBuilder {
 	public static void main(String[] args) throws IOException, ParseException {
@@ -17,7 +18,7 @@ public class featureVectorBuilder {
 		
 		String root = "/home/farig/Desktop/features";
 		
-		File file = new File(root + "/basicFeatures");//PsychoLinguistic category cache
+		File file = new File(root + "/basicFeatures");
 		// if file doesnt exists, then create it
 		if (!file.exists()) {
 			file.createNewFile();
@@ -45,7 +46,7 @@ public class featureVectorBuilder {
 	    	engageF.put(userId, tempList);
 	    }
 	    
-	    ////////////reading engagement features
+	    ////////////reading metamap features
 		file = new File(root + "/metamapFeatures.txt");
 		fis = new FileInputStream(file); 
 	    reader = new BufferedReader(new InputStreamReader(fis));
@@ -64,7 +65,7 @@ public class featureVectorBuilder {
 	    	metamapF.put(userId, tempList);
 	    }
 	    
-	    ////////////reading engagement features
+	    ////////////reading liwc features
 	  	file = new File(root + "/PsyLingCount.csv");
 		fis = new FileInputStream(file); 
 	    reader = new BufferedReader(new InputStreamReader(fis));

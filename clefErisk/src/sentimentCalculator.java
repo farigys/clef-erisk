@@ -27,6 +27,7 @@ import edu.stanford.nlp.sentiment.SentimentCoreAnnotations.SentimentAnnotatedTre
 import edu.stanford.nlp.trees.Tree;
 import edu.stanford.nlp.util.CoreMap;
 
+//runs Stanford Sentiment Analyzer on train data
 
 public class sentimentCalculator {
 	static ArrayList<String> posUserIdList = new ArrayList<String>();

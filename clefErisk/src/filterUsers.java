@@ -6,6 +6,8 @@ import java.io.InputStreamReader;
 import java.text.ParseException;
 import java.util.*;
 
+//filter users based on their total post count
+
 public class filterUsers {
 	public static void main(String[] args) throws IOException, ParseException {
 		String root = "/home/farig/Desktop/eRisk@CLEF2017 - released training data/";

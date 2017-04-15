@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
 
+//filter the dictionary created by createDictionary.java based on word frequency
 
 public class filterDictionary {
 public static void main(String argv[]) throws IOException{
@@ -20,7 +21,7 @@ public static void main(String argv[]) throws IOException{
 		for(int m=0; m<tags.length; m++)classesToDelete.add(tags[m]);
 		
 		String root = "/home/farig/Desktop/eRisk@CLEF2017 - released training data/";
-		File writefile = new File(root + "filtered_dictionary.txt");
+		File writefile = new File(root + "filtered_dictionary_100.txt");
      	if (!writefile.exists()) {
     		writefile.createNewFile();
     	}
@@ -69,14 +70,14 @@ public static void main(String argv[]) throws IOException{
 	    
 	    Collections.sort(countList);
 	    Collections.reverse(countList);
-	    //System.out.println(countList);
-	    int threshold = 5;
+	    //System.out.println(countList.get(1000));
+	    int threshold = 693;
 	    
 	    //System.out.println(threshold);
 	    
 	    Iterator iter = dictionary.entrySet().iterator();
 	    
-	    while(iter.hasNext())
+	    while(iter.hasNext() && index <= 1000)
 	    {
 	    	Map.Entry e = (Map.Entry) iter.next();
 	    	String word = e.getKey().toString();

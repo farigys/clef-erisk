@@ -28,6 +28,7 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
 import org.w3c.dom.Element;
 
+//runs LIWC sentiment analysis on train data
 
 public class sentimentAnalyzer {
 	public static void main(String[] args) throws IOException, ParseException {
