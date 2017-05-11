@@ -12,6 +12,8 @@ public class bag_of_words_feature_vector_builder {
 		
 		String[] types = {"positive", "negative"};
 		
+		fileIO fwt = new fileIO(root + "bag_of_words_per_user.txt", "w");
+		
 		for(String type:types)
 		{
 			String rootRead = root + type + "_examples_anonymous_chunks_texts_indexed/";
@@ -21,7 +23,7 @@ public class bag_of_words_feature_vector_builder {
 			
 			File[] listFiles = fread.listFiles();
 			
-			fileIO fwt = new fileIO(root + "bag_of_words_per_user.txt", "w+");
+			System.out.println(listFiles.length);
 			
 			for(File f:listFiles)
 			{
@@ -66,13 +68,17 @@ public class bag_of_words_feature_vector_builder {
 				}
 				fwpu.close();
 				//System.out.println();
+				
 				for(int x=1; x<bowpu.length; x++)
+				{
 					fwt.write("," + Integer.toString(bowpu[x]));
+					//System.out.println(bowpu.length);
+				}
 				fwt.write("\n");
 			}
-			fwt.close();
+			
 		}
-		
+		fwt.close();
 		
 	}
 }
