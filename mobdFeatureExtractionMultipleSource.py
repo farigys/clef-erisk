@@ -1,4 +1,7 @@
-#import networkx as nx
+#Extracts metamap concepts from given text. Metamap receives texts as sentences. 
+#this is specifically used for clef-erisk test set, as each chunk is released
+#the data file is updated. For the code on training data, see mobdFeatureExtractionMultiSem.py
+#This focuses on three ontologies: SNOMEDCT-US, RXNORM and CHV
 import numpy as np
 import matplotlib.pyplot as plt
 import json

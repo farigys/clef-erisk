@@ -17,7 +17,11 @@ chunk_separator.java: distribute postwise feature vectors into chunks for traini
 
 collect_bottom_user_text.java: collects text for users with low number of posts
 
+collectBasicInfo.java: collects activity period and wait time for positive and negative users
+
 convertTextToIndex.java: converts text files into indexed files based on a dictionary
+
+createCuiDictionary.java: Creates a complete CUI dictionary with all semantic types for SNOMEDCT-US
 
 createDictionary.java: creates a dictionary based on the training file
 

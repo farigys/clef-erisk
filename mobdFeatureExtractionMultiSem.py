@@ -1,4 +1,6 @@
-#import networkx as nx
+#Extracts metamap concepts from given text. Metamap receives texts as posts. 
+#this is specifically used for clef-erisk train set. 
+#For the code on test data, see mobdFeatureExtraction.py
 import numpy as np
 import matplotlib.pyplot as plt
 import json
@@ -40,7 +42,7 @@ for userIdLine in userList:
 #print len(negUserList)
 print len(totalUserList)
 
-totalUserList = ["train_subject687"]
+#totalUserList = ["train_subject687"]
 
 userCount = 0
 skiplist = ["train_subject7938", "train_subject687", "train_subject1939", "train_subject1909"]
